@@ -1,7 +1,9 @@
-/**
- * Implement Gatsby's Browser APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/browser-apis/
- */
+const React = require("react")
+const Layout1 = require("./src/components/Layout1").default
+const { CartProvider } = require("./src/Context")
 
-// You can delete this file if you're not using it
+exports.wrapRootElement = ({ element }) => (
+  <CartProvider>
+    <Layout1>{element}</Layout1>
+  </CartProvider>
+)

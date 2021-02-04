@@ -1,16 +1,43 @@
 import React from "react"
-import { Link } from "gatsby"
+import { graphql } from "gatsby"
 
-import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Products from "../components/Products1"
+export const query = graphql`
+  query GET_DATA {
+    allSite {
+      edges { 
+        node {
+          siteMetadata {
+            description
+          }
+        }
+      }
+    }
+    allStripePrice {
+      edges {
+        node {
+          id
+          unit_amount
+          product {
+            name
+            metadata {
+              description
+              img
+              wear
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
-const SecondPage = () => (
-  <Layout>
-    <SEO title="Page two" />
-    <h1>Hi from the second page</h1>
-    <p>Welcome to page 2</p>
-    <Link to="/">Go back to the homepage</Link>
-  </Layout>
-)
+const SecondPage = ({data}) => (
+  <div>
+ <SEO title="Home" />
+<Products products={data.allStripePrice.edges} />
+  </div>
+    )
 
 export default SecondPage
